@@ -26,7 +26,7 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-# # You can test the API using our documentation:
+## You can test the API using our documentation:
 
 http://localhost:3000/api
 
