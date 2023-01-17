@@ -36,11 +36,11 @@ export class AccountService {
         Messages.SUCESS_CREATE_ACCOUNT,
         response,
       );
-    } catch (error) {
+    } catch (e) {
       throw new HttpException(
         {
           statusCode: HttpStatus.BAD_REQUEST,
-          error: Messages.ERROR_CREATE_ACCOUNT,
+          error: e.response.error || Messages.ERROR_CREATE_ACCOUNT,
         },
         HttpStatus.BAD_REQUEST,
       );
@@ -60,11 +60,11 @@ export class AccountService {
         Messages.SUCESS_FIND_ACCOUNT,
         response,
       );
-    } catch (error) {
+    } catch (e) {
       throw new HttpException(
         {
           statusCode: HttpStatus.BAD_REQUEST,
-          error: Messages.ERROR_FIND_ACCOUNT,
+          error: e.response.error || Messages.ERROR_FIND_ACCOUNT,
         },
         HttpStatus.BAD_REQUEST,
       );
@@ -85,7 +85,7 @@ export class AccountService {
       throw new HttpException(
         {
           statusCode: HttpStatus.BAD_REQUEST,
-          error: Messages.ERROR_RECHARGE,
+          error: e.response.error || Messages.ERROR_RECHARGE,
         },
         HttpStatus.BAD_REQUEST,
       );
@@ -95,6 +95,15 @@ export class AccountService {
   async discharge(id: number, dischargeAccountDto: DischargeAccountDto) {
     try {
       const account = await this.accountRepository.findOneBy({ id });
+      if (account.balance < dischargeAccountDto.balance) {
+        throw new HttpException(
+          {
+            error: Messages.ERROR_DISCHARGE_BALANCE,
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+  
       account.balance -= dischargeAccountDto.balance;
       account.balance = parseFloat(account.balance.toFixed(2));
       const response = await this.update(id, account);
@@ -103,11 +112,11 @@ export class AccountService {
         Messages.SUCESS_DISCHARGE,
         response,
       );
-    } catch (error) {
+    } catch (e) {
       throw new HttpException(
         {
           statusCode: HttpStatus.BAD_REQUEST,
-          error: Messages.ERROR_DISCHARGE,
+          error: e.response.error || Messages.ERROR_DISCHARGE,
         },
         HttpStatus.BAD_REQUEST,
       );

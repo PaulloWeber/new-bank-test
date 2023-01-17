@@ -37,11 +37,11 @@ export class UserService {
         Messages.SUCESS_CREATE_USER,
         response,
       );
-    } catch (error) {
+    } catch (e) {
       throw new HttpException(
         {
           statusCode: HttpStatus.BAD_REQUEST,
-          error: Messages.ERROR_CREATE_USER,
+          error: e.response.error || Messages.ERROR_CREATE_USER,
         },
         HttpStatus.BAD_REQUEST,
       );
@@ -57,11 +57,11 @@ export class UserService {
         Messages.SUCESS_FIND_USER,
         response,
       );
-    } catch (error) {
+    } catch (e) {
       throw new HttpException(
         {
           statusCode: HttpStatus.BAD_REQUEST,
-          error: Messages.ERROR_FIND_USER,
+          error: e.response.error || Messages.ERROR_FIND_USER,
         },
         HttpStatus.BAD_REQUEST,
       );
@@ -77,11 +77,11 @@ export class UserService {
         Messages.SUCESS_FIND_USER,
         response,
       );
-    } catch (error) {
+    } catch (e) {
       throw new HttpException(
         {
           statusCode: HttpStatus.BAD_REQUEST,
-          error: Messages.ERROR_FIND_USER,
+          error: e.response.error || Messages.ERROR_FIND_USER,
         },
         HttpStatus.BAD_REQUEST,
       );

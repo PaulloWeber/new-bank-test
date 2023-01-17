@@ -38,10 +38,10 @@ let AccountService = class AccountService {
             const response = await this.accountRepository.save(account);
             return new data_handler_1.default(common_1.HttpStatus.OK, utils_1.Messages.SUCESS_CREATE_ACCOUNT, response);
         }
-        catch (error) {
+        catch (e) {
             throw new common_1.HttpException({
                 statusCode: common_1.HttpStatus.BAD_REQUEST,
-                error: utils_1.Messages.ERROR_CREATE_ACCOUNT,
+                error: e.response.error || utils_1.Messages.ERROR_CREATE_ACCOUNT,
             }, common_1.HttpStatus.BAD_REQUEST);
         }
     }
@@ -54,10 +54,10 @@ let AccountService = class AccountService {
                 .getMany();
             return new data_handler_1.default(common_1.HttpStatus.OK, utils_1.Messages.SUCESS_FIND_ACCOUNT, response);
         }
-        catch (error) {
+        catch (e) {
             throw new common_1.HttpException({
                 statusCode: common_1.HttpStatus.BAD_REQUEST,
-                error: utils_1.Messages.ERROR_FIND_ACCOUNT,
+                error: e.response.error || utils_1.Messages.ERROR_FIND_ACCOUNT,
             }, common_1.HttpStatus.BAD_REQUEST);
         }
     }
@@ -72,22 +72,27 @@ let AccountService = class AccountService {
         catch (e) {
             throw new common_1.HttpException({
                 statusCode: common_1.HttpStatus.BAD_REQUEST,
-                error: utils_1.Messages.ERROR_RECHARGE,
+                error: e.response.error || utils_1.Messages.ERROR_RECHARGE,
             }, common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async discharge(id, dischargeAccountDto) {
         try {
             const account = await this.accountRepository.findOneBy({ id });
+            if (account.balance < dischargeAccountDto.balance) {
+                throw new common_1.HttpException({
+                    error: utils_1.Messages.ERROR_DISCHARGE_BALANCE,
+                }, common_1.HttpStatus.BAD_REQUEST);
+            }
             account.balance -= dischargeAccountDto.balance;
             account.balance = parseFloat(account.balance.toFixed(2));
             const response = await this.update(id, account);
             return new data_handler_1.default(common_1.HttpStatus.OK, utils_1.Messages.SUCESS_DISCHARGE, response);
         }
-        catch (error) {
+        catch (e) {
             throw new common_1.HttpException({
                 statusCode: common_1.HttpStatus.BAD_REQUEST,
-                error: utils_1.Messages.ERROR_DISCHARGE,
+                error: e.response.error || utils_1.Messages.ERROR_DISCHARGE,
             }, common_1.HttpStatus.BAD_REQUEST);
         }
     }

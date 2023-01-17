@@ -15,6 +15,7 @@ var Messages;
     Messages["ERROR_FIND_USER"] = "Erro ao buscar o usuario.";
     Messages["SUCESS_FIND_ACCOUNT"] = "Contas buscadas com sucesso.";
     Messages["ERROR_FIND_ACCOUNT"] = "Erro ao buscar as contas.";
+    Messages["ERROR_DISCHARGE_BALANCE"] = "Erro! Saldo insuficiente.";
 })(Messages = exports.Messages || (exports.Messages = {}));
 function generateAccountNumber(length) {
     let result = '';

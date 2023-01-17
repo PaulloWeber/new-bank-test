@@ -11,6 +11,7 @@ export enum Messages {
   ERROR_FIND_USER = 'Erro ao buscar o usuario.',
   SUCESS_FIND_ACCOUNT = 'Contas buscadas com sucesso.',
   ERROR_FIND_ACCOUNT = 'Erro ao buscar as contas.',
+  ERROR_DISCHARGE_BALANCE = 'Erro! Saldo insuficiente.',
 }
 
 export function generateAccountNumber(length) {

@@ -40,10 +40,10 @@ let UserService = class UserService {
             const response = await this.usersRepository.save(user);
             return new data_handler_1.default(common_1.HttpStatus.OK, utils_1.Messages.SUCESS_CREATE_USER, response);
         }
-        catch (error) {
+        catch (e) {
             throw new common_1.HttpException({
                 statusCode: common_1.HttpStatus.BAD_REQUEST,
-                error: utils_1.Messages.ERROR_CREATE_USER,
+                error: e.response.error || utils_1.Messages.ERROR_CREATE_USER,
             }, common_1.HttpStatus.BAD_REQUEST);
         }
     }
@@ -52,10 +52,10 @@ let UserService = class UserService {
             const response = await this.usersRepository.findOneBy({ email });
             return new data_handler_1.default(common_1.HttpStatus.OK, utils_1.Messages.SUCESS_FIND_USER, response);
         }
-        catch (error) {
+        catch (e) {
             throw new common_1.HttpException({
                 statusCode: common_1.HttpStatus.BAD_REQUEST,
-                error: utils_1.Messages.ERROR_FIND_USER,
+                error: e.response.error || utils_1.Messages.ERROR_FIND_USER,
             }, common_1.HttpStatus.BAD_REQUEST);
         }
     }
@@ -64,10 +64,10 @@ let UserService = class UserService {
             const response = await this.usersRepository.findOneBy({ cpf });
             return new data_handler_1.default(common_1.HttpStatus.OK, utils_1.Messages.SUCESS_FIND_USER, response);
         }
-        catch (error) {
+        catch (e) {
             throw new common_1.HttpException({
                 statusCode: common_1.HttpStatus.BAD_REQUEST,
-                error: utils_1.Messages.ERROR_FIND_USER,
+                error: e.response.error || utils_1.Messages.ERROR_FIND_USER,
             }, common_1.HttpStatus.BAD_REQUEST);
         }
     }
