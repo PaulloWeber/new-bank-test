@@ -1,9 +1,9 @@
-import { Global, Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './user/entities/user.entity';
-import { UserModule } from './user/user.module';
-import { AccountModule } from './account/account.module';
-import { Account } from './account/entities/account.entity';
+import { Global, Module } from '@nestjs/common'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { User } from './user/entities/user.entity'
+import { UserModule } from './user/user.module'
+import { AccountModule } from './account/account.module'
+import { Account } from './account/entities/account.entity'
 
 @Global()
 @Module({
@@ -16,10 +16,10 @@ import { Account } from './account/entities/account.entity';
       password: 'bancodedados',
       database: 'new-bank',
       entities: [User, Account],
-      synchronize: true,
+      synchronize: true
     }),
     UserModule,
-    AccountModule,
-  ],
+    AccountModule
+  ]
 })
 export class AppModule {}
